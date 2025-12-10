@@ -1,0 +1,115 @@
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #fcf4fa;
+  color: #1e293b; /* Slate-800 default */
+}
+
+/* Custom Scrollbar - Theme Matching */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fdf2f8; /* Pink-50 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e580b1; /* Custom Pink */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #db2777; /* Pink-600 */
+}
+
+/* 
+   Polyfill para animações do tailwindcss-animate 
+   (necessário pois estamos usando CDN ou sem o plugin configurado no build)
+*/
+.animate-in {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+/* Slide pequeno (para componentes) */
+.slide-in-from-right-4 {
+  animation-name: slideInRight;
+}
+
+.slide-in-from-left-4 {
+  animation-name: slideInLeft;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slideInBottom;
+}
+
+/* Slide completo (para menu drawer) */
+.slide-in-from-left {
+  animation-name: slideInLeftFull;
+}
+
+.zoom-in {
+  animation-name: zoomIn;
+}
+
+/* Keyframes Definitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(1rem); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-1rem); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeftFull {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInBottom {
+  from { transform: translateY(1rem); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Utilitários de impressão */
+@media print {
+  body {
+    background-color: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
