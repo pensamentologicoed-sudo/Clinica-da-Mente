@@ -18,16 +18,37 @@ const Login: React.FC<LoginProps> = ({ onSuccess }) => {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      console.log('🔐 Tentando fazer login com:', email);
+
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      console.log('📊 Resposta do login:', { data, error });
+
+      if (error) {
+        console.error('❌ Erro de login:', error);
+        throw error;
+      }
+
+      console.log('✅ Login bem-sucedido!');
       if (onSuccess) onSuccess();
 
     } catch (err: any) {
-      setError(err.message === 'Invalid login credentials' ? 'Email ou senha incorretos.' : err.message || 'Erro ao fazer login.');
+      console.error('❌ Erro capturado:', err);
+
+      let errorMessage = 'Erro ao fazer login.';
+
+      if (err.message === 'Invalid login credentials') {
+        errorMessage = 'Email ou senha incorretos.';
+      } else if (err.message?.includes('API key')) {
+        errorMessage = 'Erro de configuração: Chave da API inválida. Verifique as variáveis de ambiente.';
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
